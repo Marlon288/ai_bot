@@ -70,8 +70,6 @@ def start(searchArtist):
         
         best = globalBest(particles)
         i = 0
-        print(currX)
-        print(currY)
         print(endX)
         print(endY)
 
@@ -84,8 +82,8 @@ def start(searchArtist):
         #weight = lambda x : 0.110343 * math.log(64.4087*x-1661.65)-0.153561 #Worked alright but issue with negative number in log
         #weight = lambda x : -3.440860214531*10**-6*x**2+0.00245161*x+0.466667 #Did not work at all stuck at element which is far away
         weight = lambda x : 0.0719644*(x**0.30423)+0.468071 #Works very good 
-    # weight = lambda x, i : 7.75723*(x**0.0169864) -7.59032 if(i < 15) else 0.7 #Worked very well, fast in close and fast in far away elements
-    # weight = lambda x, i : 7.75723*(x**0.0169864) -7.59032 if(i < 10) elseif(x > 100) 1 else if(x > 50) 0.5
+        # weight = lambda x, i : 7.75723*(x**0.0169864) -7.59032 if(i < 15) else 0.7 #Worked very well, fast in close and fast in far away elements
+        # weight = lambda x, i : 7.75723*(x**0.0169864) -7.59032 if(i < 10) elseif(x > 100) 1 else if(x > 50) 0.5
 
         
         
@@ -133,7 +131,7 @@ def start(searchArtist):
             if(currX - endX < 2 and currX - endX > 0): xFound = True
             if(currX - endX < 2 and currX - endX > 0): yFound = True
             ait.move(absCurrX(), absCurrY())
-            sleep(0.1)
+            sleep(0.05)
       
         return element
 
@@ -226,7 +224,6 @@ def start(searchArtist):
 
     queue = []
     allSongs = []
-    #Evaluation = From artist + 10, artist that is in feature + 7, prod from someone the artist was produced +2, someone the artist had a feature with + 4
     
     #Setup for starting page
     chop = webdriver.ChromeOptions()
@@ -281,9 +278,11 @@ def start(searchArtist):
                 link = queue[index][1]
         except:
             driver.get(link)
-
-        #sleep(queue[index][2]-5) #Sleep as long as the video plays
-        sleep(15)
+        sleep(2)
+        ait.write("f")
+        sleep(queue[index][2]-5) #Sleep as long as the video plays
+        #sleep(15)
+        ait.write("f")
         del queue[index]
         
         if len(queue) == 0:
